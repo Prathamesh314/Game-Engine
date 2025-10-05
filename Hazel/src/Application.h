@@ -1,3 +1,4 @@
+#pragma once
 #include "Core.h"
 
 namespace Hazel {
@@ -7,4 +8,6 @@ namespace Hazel {
         virtual ~Application();
         void Run();
     };
-}
+};
+
+Hazel::Application* CreateApplication();

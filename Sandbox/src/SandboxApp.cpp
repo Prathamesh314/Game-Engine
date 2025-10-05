@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "EntryPoint.h"
 #include "iostream"
 
 class Sandbox :public Hazel::Application 
@@ -17,7 +18,6 @@ class Sandbox :public Hazel::Application
     }
 };
 
-int main(){
-    Sandbox* s = new Sandbox();
-    s->Run();
+Hazel::Application* CreateApplication(){
+    return new Sandbox();
 }
