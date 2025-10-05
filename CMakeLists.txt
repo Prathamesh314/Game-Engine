@@ -23,8 +23,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${INTERMEDIATE_DIR})
 ###########################################
 
 add_library(Hazel SHARED
-    Hazel/src/Hazel.h
-    Hazel/src/Hazel.cpp
+    Hazel/src/Application.h
+    Hazel/src/Application.cpp
 )
 
 # Define HAZEL_BUILD_DLL when building the Hazel library
@@ -56,7 +56,7 @@ target_include_directories(Hazel PUBLIC
 ###########################################
 
 add_executable(Sandbox
-    Sandbox/src/Application.cpp
+    Sandbox/src/SandboxApp.cpp
 )
 
 # Link Sandbox against Hazel

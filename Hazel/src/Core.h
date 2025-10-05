@@ -7,6 +7,7 @@
     #else
         #define HAZEL_API
     #endif
+// this is for windows [way to import export dll files.]
 #else
     #ifdef HAZEL_BUILD_DLL
         #define HAZEL_API __declspec(dllexport)
@@ -14,8 +15,3 @@
         #define HAZEL_API __declspec(dllimport)
     #endif
 #endif
-
-namespace Hazel {
-    HAZEL_API void Print();
-    HAZEL_API void InitializeEngine();
-}
