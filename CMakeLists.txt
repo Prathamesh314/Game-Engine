@@ -25,6 +25,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${INTERMEDIATE_DIR})
 add_library(Hazel SHARED
     Hazel/src/Application.h
     Hazel/src/Application.cpp
+    Hazel/Hazel.h  # Add the umbrella header to the project
 )
 
 # Define HAZEL_BUILD_DLL when building the Hazel library
@@ -47,8 +48,10 @@ set_target_properties(Hazel PROPERTIES
     INSTALL_RPATH "@loader_path"
 )
 
+# IMPORTANT: Add both Hazel/ and Hazel/src to include paths
 target_include_directories(Hazel PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/Hazel        # For Hazel.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src    # For Application.h, Core.h, etc.
 )
 
 ###########################################

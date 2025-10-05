@@ -12,5 +12,6 @@ namespace Hazel {
 
     void Application::Run(){
         std::cout<<"running from the application!"<<std::endl;
+        while (true);
     }
 }

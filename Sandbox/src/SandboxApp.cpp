@@ -1,5 +1,4 @@
-#include "Application.h"
-#include "EntryPoint.h"
+#include "Hazel.h"
 #include "iostream"
 
 class Sandbox :public Hazel::Application 
@@ -13,7 +12,7 @@ class Sandbox :public Hazel::Application
 
     }
 
-    void Run(){
+    void Run() override {
         std::cout<<"Running the Sandbox engine!"<<std::endl;
     }
 };
