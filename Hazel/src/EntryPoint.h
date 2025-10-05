@@ -2,9 +2,9 @@
 #include "Application.h"
 
 #ifdef __APPLE__
-    extern Hazel::Application* CreateApplication();
+    extern Hazel::Application* Hazel::CreateApplication();
     int main(int argc, char** argv){
-        auto app = CreateApplication();
+        Hazel::Application* app = Hazel::CreateApplication();
         app->Run();
         delete app;
         return 0;

@@ -18,6 +18,6 @@ class Sandbox :public Hazel::Application
     }
 };
 
-Hazel::Application* CreateApplication(){
+Hazel::Application* Hazel::CreateApplication(){
     return new Sandbox();
 }
