@@ -10,7 +10,7 @@
 // Core functionality
 #include "src/Core.h"
 #include "src/Application.h"
-
+#include "src/Log.h"
 // Entry Point
 // Note: This should be included LAST in the application's .cpp file
 // Do NOT include this in header files!

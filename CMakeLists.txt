@@ -25,6 +25,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${INTERMEDIATE_DIR})
 add_library(Hazel SHARED
     Hazel/src/Application.h
     Hazel/src/Application.cpp
+    Hazel/src/Log.cpp
+    Hazel/src/Log.h
     Hazel/Hazel.h  # Add the umbrella header to the project
 )
 
@@ -52,6 +54,7 @@ set_target_properties(Hazel PROPERTIES
 target_include_directories(Hazel PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/Hazel        # For Hazel.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src    # For Application.h, Core.h, etc.
+    ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/spdlog/include  # For spdlog
 )
 
 ###########################################
@@ -64,6 +67,10 @@ add_executable(Sandbox
 
 # Link Sandbox against Hazel
 target_link_libraries(Sandbox PRIVATE Hazel)
+
+target_include_directories(Sandbox PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/spdlog/include  # For spdlog
+)
 
 set_target_properties(Sandbox PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR}/Sandbox
