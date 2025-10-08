@@ -3,3 +3,8 @@
 .cursorrules
 build
 .vscode
+bin/
+bin-int/
+.DS_Store
+a.out
+*.sln
