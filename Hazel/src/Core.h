@@ -27,3 +27,5 @@
 #else
     #error Hazel only supports macOS!
 #endif
+
+#define BIT(x) (1<<x);
