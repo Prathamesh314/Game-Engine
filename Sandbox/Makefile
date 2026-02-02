@@ -41,37 +41,37 @@ define POSTBUILDCMDS
 endef
 
 ifeq ($(config),debug)
-TARGETDIR = ../bin/Debug-macosx-ARM64/Sandbox
+TARGETDIR = ../bin/Debug-macosx-AARCH64/Sandbox
 TARGET = $(TARGETDIR)/Sandbox
-OBJDIR = ../bin-int/Debug-macosx-ARM64/Sandbox
+OBJDIR = ../bin-int/Debug-macosx-AARCH64/Sandbox
 DEFINES += -DHZ_PLATFORM_MAC -DHZ_DEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -std=c++17
-LIBS += ../bin/Debug-macosx-ARM64/Hazel/libHazel.dylib
-LDDEPS += ../bin/Debug-macosx-ARM64/Hazel/libHazel.dylib
-ALL_LDFLAGS += $(LDFLAGS) -L../bin/Debug-macosx-ARM64/Hazel -Wl,-rpath,'@loader_path/../Hazel' -rpath @executable_path -Wl,-rpath,@executable_path
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -arch arm64 -g
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -arch arm64 -g -std=c++17
+LIBS += ../bin/Debug-macosx-AARCH64/Hazel/libHazel.dylib
+LDDEPS += ../bin/Debug-macosx-AARCH64/Hazel/libHazel.dylib
+ALL_LDFLAGS += $(LDFLAGS) -L../bin/Debug-macosx-AARCH64/Hazel -Wl,-rpath,'@loader_path/../Hazel' -arch arm64 -rpath @executable_path -Wl,-rpath,@executable_path
 
 else ifeq ($(config),release)
-TARGETDIR = ../bin/Release-macosx-ARM64/Sandbox
+TARGETDIR = ../bin/Release-macosx-AARCH64/Sandbox
 TARGET = $(TARGETDIR)/Sandbox
-OBJDIR = ../bin-int/Release-macosx-ARM64/Sandbox
+OBJDIR = ../bin-int/Release-macosx-AARCH64/Sandbox
 DEFINES += -DHZ_PLATFORM_MAC -DHZ_RELEASE
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2 -std=c++17
-LIBS += ../bin/Release-macosx-ARM64/Hazel/libHazel.dylib
-LDDEPS += ../bin/Release-macosx-ARM64/Hazel/libHazel.dylib
-ALL_LDFLAGS += $(LDFLAGS) -L../bin/Release-macosx-ARM64/Hazel -Wl,-rpath,'@loader_path/../Hazel' -rpath @executable_path -Wl,-rpath,@executable_path
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -arch arm64 -O2
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -arch arm64 -O2 -std=c++17
+LIBS += ../bin/Release-macosx-AARCH64/Hazel/libHazel.dylib
+LDDEPS += ../bin/Release-macosx-AARCH64/Hazel/libHazel.dylib
+ALL_LDFLAGS += $(LDFLAGS) -L../bin/Release-macosx-AARCH64/Hazel -Wl,-rpath,'@loader_path/../Hazel' -arch arm64 -rpath @executable_path -Wl,-rpath,@executable_path
 
 else ifeq ($(config),dist)
-TARGETDIR = ../bin/Dist-macosx-ARM64/Sandbox
+TARGETDIR = ../bin/Dist-macosx-AARCH64/Sandbox
 TARGET = $(TARGETDIR)/Sandbox
-OBJDIR = ../bin-int/Dist-macosx-ARM64/Sandbox
+OBJDIR = ../bin-int/Dist-macosx-AARCH64/Sandbox
 DEFINES += -DHZ_PLATFORM_MAC -DHZ_DIST
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O3
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O3 -std=c++17
-LIBS += ../bin/Dist-macosx-ARM64/Hazel/libHazel.dylib
-LDDEPS += ../bin/Dist-macosx-ARM64/Hazel/libHazel.dylib
-ALL_LDFLAGS += $(LDFLAGS) -L../bin/Dist-macosx-ARM64/Hazel -Wl,-rpath,'@loader_path/../Hazel' -rpath @executable_path -Wl,-rpath,@executable_path
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -arch arm64 -O3
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -arch arm64 -O3 -std=c++17
+LIBS += ../bin/Dist-macosx-AARCH64/Hazel/libHazel.dylib
+LDDEPS += ../bin/Dist-macosx-AARCH64/Hazel/libHazel.dylib
+ALL_LDFLAGS += $(LDFLAGS) -L../bin/Dist-macosx-AARCH64/Hazel -Wl,-rpath,'@loader_path/../Hazel' -arch arm64 -rpath @executable_path -Wl,-rpath,@executable_path
 
 endif
 
@@ -124,7 +124,7 @@ ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -rf $(OBJDIR)
 else
 	$(SILENT) if exist $(subst /,\\,$(TARGET)) del $(subst /,\\,$(TARGET))
-	$(SILENT) if exist $(subst /,\\,$(GENERATED)) del /s /q $(subst /,\\,$(GENERATED))
+	$(SILENT) $(foreach f,$(subst /,\\,$(GENERATED)),if exist $(f) del /s /q $(f) >nul &)
 	$(SILENT) if exist $(subst /,\\,$(OBJDIR)) rmdir /s /q $(subst /,\\,$(OBJDIR))
 endif
 

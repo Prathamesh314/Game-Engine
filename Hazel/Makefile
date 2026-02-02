@@ -34,7 +34,7 @@ ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
 LIBS +=
 LDDEPS +=
-ALL_LDFLAGS += $(LDFLAGS) -dynamiclib -Wl,-install_name,@rpath/libHazel.dylib
+ALL_LDFLAGS += $(LDFLAGS) -arch arm64 -dynamiclib -Wl,-install_name,@rpath/libHazel.dylib
 LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
 define PREBUILDCMDS
 endef
@@ -42,42 +42,42 @@ define PRELINKCMDS
 endef
 
 ifeq ($(config),debug)
-TARGETDIR = ../bin/Debug-macosx-ARM64/Hazel
+TARGETDIR = ../bin/Debug-macosx-AARCH64/Hazel
 TARGET = $(TARGETDIR)/libHazel.dylib
-OBJDIR = ../bin-int/Debug-macosx-ARM64/Hazel
+OBJDIR = ../bin-int/Debug-macosx-AARCH64/Hazel
 DEFINES += -DHZ_PLATFORM_MAC -DHZ_BUILD_DLL -DHZ_DEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -fPIC -g -fvisibility=hidden -fPIC
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -fPIC -g -std=c++17 -fvisibility=hidden -fPIC
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -arch arm64 -fPIC -g -fvisibility=hidden -fPIC
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -arch arm64 -fPIC -g -std=c++17 -fvisibility=hidden -fPIC
 define POSTBUILDCMDS
 	@echo Running postbuild commands
-	mkdir -p ../bin/Debug-macosx-ARM64/Sandbox
-	cp -rf ../bin/Debug-macosx-ARM64/Hazel/libHazel.dylib ../bin/Debug-macosx-ARM64/Sandbox
+	mkdir -p ../bin/Debug-macosx-AARCH64/Sandbox
+	cp -rf ../bin/Debug-macosx-AARCH64/Hazel/libHazel.dylib ../bin/Debug-macosx-AARCH64/Sandbox
 endef
 
 else ifeq ($(config),release)
-TARGETDIR = ../bin/Release-macosx-ARM64/Hazel
+TARGETDIR = ../bin/Release-macosx-AARCH64/Hazel
 TARGET = $(TARGETDIR)/libHazel.dylib
-OBJDIR = ../bin-int/Release-macosx-ARM64/Hazel
+OBJDIR = ../bin-int/Release-macosx-AARCH64/Hazel
 DEFINES += -DHZ_PLATFORM_MAC -DHZ_BUILD_DLL -DHZ_RELEASE
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2 -fPIC -fvisibility=hidden -fPIC
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2 -fPIC -std=c++17 -fvisibility=hidden -fPIC
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -arch arm64 -O2 -fPIC -fvisibility=hidden -fPIC
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -arch arm64 -O2 -fPIC -std=c++17 -fvisibility=hidden -fPIC
 define POSTBUILDCMDS
 	@echo Running postbuild commands
-	mkdir -p ../bin/Release-macosx-ARM64/Sandbox
-	cp -rf ../bin/Release-macosx-ARM64/Hazel/libHazel.dylib ../bin/Release-macosx-ARM64/Sandbox
+	mkdir -p ../bin/Release-macosx-AARCH64/Sandbox
+	cp -rf ../bin/Release-macosx-AARCH64/Hazel/libHazel.dylib ../bin/Release-macosx-AARCH64/Sandbox
 endef
 
 else ifeq ($(config),dist)
-TARGETDIR = ../bin/Dist-macosx-ARM64/Hazel
+TARGETDIR = ../bin/Dist-macosx-AARCH64/Hazel
 TARGET = $(TARGETDIR)/libHazel.dylib
-OBJDIR = ../bin-int/Dist-macosx-ARM64/Hazel
+OBJDIR = ../bin-int/Dist-macosx-AARCH64/Hazel
 DEFINES += -DHZ_PLATFORM_MAC -DHZ_BUILD_DLL -DHZ_DIST
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O3 -fPIC -fvisibility=hidden -fPIC
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O3 -fPIC -std=c++17 -fvisibility=hidden -fPIC
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -arch arm64 -O3 -fPIC -fvisibility=hidden -fPIC
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -arch arm64 -O3 -fPIC -std=c++17 -fvisibility=hidden -fPIC
 define POSTBUILDCMDS
 	@echo Running postbuild commands
-	mkdir -p ../bin/Dist-macosx-ARM64/Sandbox
-	cp -rf ../bin/Dist-macosx-ARM64/Hazel/libHazel.dylib ../bin/Dist-macosx-ARM64/Sandbox
+	mkdir -p ../bin/Dist-macosx-AARCH64/Sandbox
+	cp -rf ../bin/Dist-macosx-AARCH64/Hazel/libHazel.dylib ../bin/Dist-macosx-AARCH64/Sandbox
 endef
 
 endif
@@ -133,7 +133,7 @@ ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -rf $(OBJDIR)
 else
 	$(SILENT) if exist $(subst /,\\,$(TARGET)) del $(subst /,\\,$(TARGET))
-	$(SILENT) if exist $(subst /,\\,$(GENERATED)) del /s /q $(subst /,\\,$(GENERATED))
+	$(SILENT) $(foreach f,$(subst /,\\,$(GENERATED)),if exist $(f) del /s /q $(f) >nul &)
 	$(SILENT) if exist $(subst /,\\,$(OBJDIR)) rmdir /s /q $(subst /,\\,$(OBJDIR))
 endif
 

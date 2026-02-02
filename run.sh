@@ -1,4 +1,10 @@
 #!/bin/bash
 
-vendor/bin/premake/premake5.exe vs2015
-./bin/Debug-macosx-ARM64/Sandbox/Sandbox
+# Generate Makefiles using premake
+vendor/bin/premake/premake5 gmake2
+
+# Build the project
+make config=debug
+
+# Run the Sandbox application
+./bin/Debug-macosx-AARCH64/Sandbox/Sandbox
