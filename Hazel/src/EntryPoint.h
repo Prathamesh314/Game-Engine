@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "Log.h"
 
-#ifdef __APPLE__
+#ifdef HZ_PLATFORM_MAC
     extern Hazel::Application* Hazel::CreateApplication();
     int main(int argc, char** argv){
         Hazel::Log::Init();
